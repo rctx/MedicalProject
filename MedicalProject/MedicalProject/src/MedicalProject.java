@@ -31,7 +31,10 @@ public class MedicalProject {
 	public static void main(String[] args) {
 		
 		MedicalProject MP = new MedicalProject();
+		
+		
 		if(true){return;}
+		
 		// OLD TESTING CODE
 		
 		//String DiseaseList = queryObj.getDisease("Coughing");
@@ -40,11 +43,11 @@ public class MedicalProject {
 		
 		//String DiseaseList2 = queryObj.getDisease("Pain", "Ebola Pneumonia FoodAllergy");
 		//System.out.println("DiseaseList2:" + DiseaseList2);
-		if(true) {return;}
+		//if(true) {return;}
 		
 		
 		//Dataset dataset = DatasetFactory.assemble(directory);//,"http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#");
-		Model model = FileManager.get().loadModel("file:C:\\Users\\Ryan\\Documents\\Med4.owl");
+		/*Model model = FileManager.get().loadModel("file:C:\\Users\\Ryan\\Documents\\Med4.owl");
 		
 		
 		//Model model = dataset.getDefaultModel();
@@ -78,7 +81,7 @@ public class MedicalProject {
 	        
 	    } finally {
 	        qexec.close();
-	    }
+	    }*/
 	}
 	
 	// Start Input and the A* search
@@ -92,6 +95,8 @@ public class MedicalProject {
 		String[] Depth = new String[20]; //hold last node# for that depth
 		String[] UserSymptoms = new String[numInputSymptoms];
 		SearchNode[] NodeQueue = new SearchNode[400]; // Sorted by estimated goal cost
+		SearchNode[] NodeHistory = new SearchNode[400]; // Sorted by estimated goal cost
+		SearchNode goalNode = null;
 		
 		String[] getDiseases = new String[numInputSymptoms];
 		
@@ -147,9 +152,10 @@ public class MedicalProject {
 		for(int y = 0; y < numInputSymptoms;y++){
 			SymptomStr += UserSymptoms[y] + " ";
 		}
-		SearchNode initialNode = new SearchNode(0, -1, SymptomStr, 0, 0, "none", "none");
+		SearchNode initialNode = new SearchNode(0, -1, SymptomStr, 0, 1000, "none", "none");
 		lastCreatedNode = 0;
 		NodeQueue[lastCreatedNode] = initialNode;
+		NodeHistory[lastCreatedNode] = initialNode;
 		//Testing
 		//initialNode = new SearchNode(0, -1, SymptomStr, 0, 0);
 		//lastCreatedNode++;
@@ -193,31 +199,97 @@ public class MedicalProject {
 					symplist+= UserSymptoms[k] + " ";
 				}
 				// Get Estimate
-				int estimate = stepCost;
+				int estimate = (numInputSymptoms - 0) * (stepCost - 1);
 				String[] getSeverity = splitDisease[newNode].split(":");
 				if(getSeverity[1].equals("has_symptom_strong")){
-					estimate = 1;
+					estimate -= 3;
 				}
 				if(getSeverity[1].equals("has_symptom_medium")){
-					estimate = 2;
+					estimate -= 2;
 				}
 				if(getSeverity[1].equals("has_symptom_weak")){
-					estimate = 3;
+					estimate -= 1;
 				}
 				
 				//SearchNode(int num, int pnum, String unsat, int currCost, int estimate, String Symptom, String Disease)
-				SearchNode SN = new SearchNode(lastCreatedNode, 0, symplist, 1, estimate, thisSymp, getSeverity[0]);
+				SearchNode SN = new SearchNode(lastCreatedNode, 0, symplist, stepCost, estimate, thisSymp, getSeverity[0]);
 				NodeQueue[lastCreatedNode] = SN;
 				NodeQueue = sortQueue(NodeQueue);
+				NodeHistory[lastCreatedNode] = SN;
 			}
 		}
+		// Checking initial disease node creation
+		printArray(NodeQueue);
 		
+		boolean found = false;
+		while(!found){
+			if(NodeQueue[0] == null){
+				System.out.println("No solution found and queue Empty!");
+				found = true;
+				continue;
+			}
+			SearchNode checkNode = NodeQueue[0];
+			//System.out.println("checking node:" + checkNode.toString());
+			System.out.println("  Checking " + checkNode.toStringS());
+			//String severities = "";
+			for(int i = 0; i < checkNode.unsatisfiedSymptom.length; i++){
+				// getDisease(String Symptom, String IncomingDiseases)
+				String getSymptoms = "";
+				getSymptoms = queryObj.getDisease(checkNode.unsatisfiedSymptom[i], checkNode.DiseaseName);
+				if(getSymptoms.equals("")){
+					continue;
+				}
+				String[] severity = getSymptoms.split(":");
+				
+				//Create  a new search node for each unsatisfied symptom it has a relation with
+				lastCreatedNode++;
+				String newUnsat = "";
+				for(int h = 0; h < checkNode.unsatisfiedSymptom.length; h++){
+					if(checkNode.unsatisfiedSymptom[h].equals(checkNode.unsatisfiedSymptom[i])){
+						continue;
+					}
+					newUnsat += checkNode.unsatisfiedSymptom[h] + " ";
+				}
+				// Get Estimate
+				int estimate = (checkNode.unsatisfiedSymptom.length - 1) * (stepCost - 1) + (checkNode.totalCost + stepCost);
+				if(severity[1].equals("has_symptom_strong")){
+					estimate -= 3;
+				}
+				if(severity[1].equals("has_symptom_medium")){
+					estimate -= 2;
+				}
+				if(severity[1].equals("has_symptom_weak")){
+					estimate -= 1;
+				}
+				//SearchNode(int num, int pnum, String unsat, int currCost, int estimate, String Symptom, String Disease)
+				SearchNode SN = new SearchNode(lastCreatedNode, checkNode.number, newUnsat, (checkNode.totalCost + stepCost), estimate, checkNode.unsatisfiedSymptom[i], checkNode.DiseaseName);
+				NodeQueue[lastCreatedNode] = SN;
+				NodeQueue = sortQueue(NodeQueue);
+				NodeHistory[lastCreatedNode] = SN;
+				if(newUnsat.equals("")){
+					found = true;
+					goalNode = SN;
+				}
+				//severities += checkNode.unsatisfiedSymptom[i] + ":" + temp[1] + " ";
+				
+			}
+			 NodeQueue[0] = null;
+			 NodeQueue = sortQueue(NodeQueue);
+		}
+		if(goalNode != null){
+			System.out.println("Found Goal Node!");
+			System.out.println("  " + goalNode.toString());
+			traceResult(goalNode.number,NodeHistory);
+		}
 	}
 	
-	public void printArray(String[] printThis){
+	public void printArray(SearchNode[] nodeQueue){
 		System.out.println("Printing new array");
-		for(int i = 0; i < printThis.length;i++){
-			System.out.println(" - " + printThis[i]);
+		for(int i = 0; i < nodeQueue.length;i++){
+			if(nodeQueue[i] == null){
+				continue;
+			}
+			System.out.println(" - " + nodeQueue[i].toString());
 		}
 	}
 	
@@ -235,10 +307,10 @@ public class MedicalProject {
 		}
 		Arrays.sort(retNodes ,0, num, new Comparator<SearchNode>() {
 			   public int compare(SearchNode n1, SearchNode n2) {
-				   if(n1.estimatedGoalCost > n1.estimatedGoalCost){
+				   if(n1.estimatedGoalCost > n2.estimatedGoalCost){
 					   return 1;
 				   }
-				   if(n1.estimatedGoalCost < n1.estimatedGoalCost){
+				   if(n1.estimatedGoalCost < n2.estimatedGoalCost){
 					   return -1;
 				   }
 				   else{					   
@@ -248,6 +320,29 @@ public class MedicalProject {
 		});
 		
 		return retNodes;
+	}
+	
+	public void traceResult(int goalNum, SearchNode[] nodes){
+		System.out.println("     -------------------------------------------");
+		System.out.println(" Printing out reverse path from Goal Node to Intitial Node");
+		System.out.println("Goal  " + nodes[goalNum].toString());
+		SearchNode sn = nodes[findNode(goalNum, nodes)];
+		while(sn.parentNumber > -1){
+			sn = nodes[findNode(sn.parentNumber, nodes)];
+			System.out.println("      " + sn.toString());
+		}
+	}
+	
+	public int findNode(int nodeNum, SearchNode[] nodes){
+		for(int i = 0; i < nodes.length;i++){
+			if(nodes[i] == null){
+				continue;
+			}
+			if(nodes[i].number == nodeNum){
+				return i;
+			}
+		}
+		return 0;
 	}
 
 }
