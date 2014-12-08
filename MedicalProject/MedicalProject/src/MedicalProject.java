@@ -145,7 +145,16 @@ public class MedicalProject {
 					System.out.println("You can enter 'list' to see all symptoms.");
 				}
 			}
-		}// Done gathering input
+		}
+		System.out.println("Enter Heuristic 1 or 2");
+		String heuristic = "";
+		try {
+			heuristic = br.readLine();
+		}catch (IOException ioe) {
+	         System.out.println("IO error trying to read your heuristic!");
+	         System.exit(1);
+	      }
+		// Done gathering input
 		
 		// Create Initial Search Node
 		//SearchNode(int num, int pnum, String unsat, int currCost, int estimate )
@@ -202,6 +211,7 @@ public class MedicalProject {
 				// Get Estimate
 				int estimate = (numInputSymptoms - 0) * (stepCost - 1);
 				String[] getSeverity = splitDisease[newNode].split(":");
+				if(!heuristic.equals("2")){
 				if(getSeverity[1].equals("has_symptom_strong")){
 					estimate -= 3;
 				}
@@ -210,7 +220,7 @@ public class MedicalProject {
 				}
 				if(getSeverity[1].equals("has_symptom_weak")){
 					estimate -= 1;
-				}
+				}}
 				
 				//SearchNode(int num, int pnum, String unsat, int currCost, int estimate, String Symptom, String Disease)
 				SearchNode SN = new SearchNode(lastCreatedNode, 0, symplist, stepCost, estimate, thisSymp, getSeverity[0]);
@@ -253,6 +263,7 @@ public class MedicalProject {
 				}
 				// Get Estimate
 				int estimate = (checkNode.unsatisfiedSymptom.length - 1) * (stepCost - 1) + (checkNode.totalCost + stepCost);
+				if(!heuristic.equals("2")){
 				if(severity[1].equals("has_symptom_strong")){
 					estimate -= 3;
 				}
@@ -261,7 +272,7 @@ public class MedicalProject {
 				}
 				if(severity[1].equals("has_symptom_weak")){
 					estimate -= 1;
-				}
+				}}
 				//SearchNode(int num, int pnum, String unsat, int currCost, int estimate, String Symptom, String Disease)
 				SearchNode SN = new SearchNode(lastCreatedNode, checkNode.number, newUnsat, (checkNode.totalCost + stepCost), estimate, checkNode.unsatisfiedSymptom[i], checkNode.DiseaseName);
 				NodeQueue[lastCreatedNode] = SN;
