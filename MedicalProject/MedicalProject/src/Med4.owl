@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY untitled-ontology-2 "http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#" >
+]>
+
+
+<rdf:RDF xmlns="http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#"
+     xml:base="http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:untitled-ontology-2="http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    <owl:Ontology rdf:about="http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#has_symptom -->
+
+    <owl:ObjectProperty rdf:about="&untitled-ontology-2;has_symptom">
+        <rdfs:domain rdf:resource="&untitled-ontology-2;Disease"/>
+        <rdfs:range rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#has_symptom_medium -->
+
+    <owl:ObjectProperty rdf:about="&untitled-ontology-2;has_symptom_medium">
+        <rdfs:subPropertyOf rdf:resource="&untitled-ontology-2;has_symptom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#has_symptom_strong -->
+
+    <owl:ObjectProperty rdf:about="&untitled-ontology-2;has_symptom_strong">
+        <rdfs:subPropertyOf rdf:resource="&untitled-ontology-2;has_symptom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#has_symptom_weak -->
+
+    <owl:ObjectProperty rdf:about="&untitled-ontology-2;has_symptom_weak">
+        <rdfs:subPropertyOf rdf:resource="&untitled-ontology-2;has_symptom"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Allergic_Disease -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Allergic_Disease">
+        <rdfs:subClassOf rdf:resource="&untitled-ontology-2;Disease"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Disease -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Disease"/>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Gastrointestinal_Disease -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Gastrointestinal_Disease">
+        <rdfs:subClassOf rdf:resource="&untitled-ontology-2;Disease"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Infection_Disease -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Infection_Disease">
+        <rdfs:subClassOf rdf:resource="&untitled-ontology-2;Disease"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Respiratory_Disease -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Respiratory_Disease">
+        <rdfs:subClassOf rdf:resource="&untitled-ontology-2;Disease"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Symptom -->
+
+    <owl:Class rdf:about="&untitled-ontology-2;Symptom"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Congestion -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Congestion">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Coughing -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Coughing">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Ebola -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Ebola">
+        <rdf:type rdf:resource="&untitled-ontology-2;Disease"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Fever -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Fever">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#FoodAllergy -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;FoodAllergy">
+        <rdf:type rdf:resource="&untitled-ontology-2;Allergic_Disease"/>
+        <has_symptom_weak rdf:resource="&untitled-ontology-2;Nausea"/>
+        <has_symptom_medium rdf:resource="&untitled-ontology-2;Pain"/>
+        <has_symptom_strong rdf:resource="&untitled-ontology-2;Rash"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#FoodPoisioning -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;FoodPoisioning">
+        <rdf:type rdf:resource="&untitled-ontology-2;Gastrointestinal_Disease"/>
+        <has_symptom_weak rdf:resource="&untitled-ontology-2;Fever"/>
+        <has_symptom_medium rdf:resource="&untitled-ontology-2;Nausea"/>
+        <has_symptom_strong rdf:resource="&untitled-ontology-2;StomachAche"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Headache -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Headache">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Nausea -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Nausea">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Pain -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Pain">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Pneumonia -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Pneumonia">
+        <rdf:type rdf:resource="&untitled-ontology-2;Respiratory_Disease"/>
+        <has_symptom_strong rdf:resource="&untitled-ontology-2;Coughing"/>
+        <has_symptom_weak rdf:resource="&untitled-ontology-2;Pain"/>
+        <has_symptom_medium rdf:resource="&untitled-ontology-2;SoreThroat"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Rash -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Rash">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#SinusInfection -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;SinusInfection">
+        <rdf:type rdf:resource="&untitled-ontology-2;Infection_Disease"/>
+        <has_symptom_strong rdf:resource="&untitled-ontology-2;Congestion"/>
+        <has_symptom_medium rdf:resource="&untitled-ontology-2;Headache"/>
+        <has_symptom_weak rdf:resource="&untitled-ontology-2;SoreThroat"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#SoreThroat -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;SoreThroat">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#Soreness -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;Soreness">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#StomachAche -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;StomachAche">
+        <rdf:type rdf:resource="&untitled-ontology-2;Symptom"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.semanticweb.org/ryan/ontologies/2014/11/untitled-ontology-2#StrepThroat -->
+
+    <owl:NamedIndividual rdf:about="&untitled-ontology-2;StrepThroat">
+        <rdf:type rdf:resource="&untitled-ontology-2;Infection_Disease"/>
+        <has_symptom_medium rdf:resource="&untitled-ontology-2;Fever"/>
+        <has_symptom_strong rdf:resource="&untitled-ontology-2;SoreThroat"/>
+        <has_symptom_weak rdf:resource="&untitled-ontology-2;Soreness"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.5.0) http://owlapi.sourceforge.net -->
+

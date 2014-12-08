@@ -103,7 +103,8 @@ public class MedicalProject {
 		//
 		// Change this to relational
 		//
-		String directory = "file:C:\\Users\\Ryan\\Documents\\Med4.owl";
+		//String directory = "file:C:\\Users\\Ryan\\Documents\\Med4.owl";
+		String directory = "file:src\\Med4.owl";
 		SPRQLQuery queryObj = new SPRQLQuery(directory);
 		
 		String SymptomList = queryObj.getSymptoms();
@@ -329,6 +330,10 @@ public class MedicalProject {
 		SearchNode sn = nodes[findNode(goalNum, nodes)];
 		while(sn.parentNumber > -1){
 			sn = nodes[findNode(sn.parentNumber, nodes)];
+			if(sn.number == 0){
+				System.out.println("      Initial node 0, done!");
+				continue;
+			}
 			System.out.println("      " + sn.toString());
 		}
 	}

@@ -34,11 +34,11 @@ public class SearchNode {
 	}
 	
 	public String toString(){		
-		return "Node: " + number + " with disease: " + DiseaseName + " with symptom: " + Symptom + " with parent: " + parentNumber + " with current cost: " + totalCost + " with Estimated Goal Cost(f(n)): " + estimatedGoalCost +  " and unsatisfied Symptoms: " + unsatStr;		
+		return "Node: " + number + " with disease: " + DiseaseName + " with symptom: " + Symptom + " with parent: " + parentNumber + " with current cost: " + totalCost + " with Estimated Goal Cost(f(n)): " + (estimatedGoalCost - totalCost) +  " and unsatisfied Symptoms: " + unsatStr;		
 	}
 	
 	public String toStringS(){		
-		return "Node: " + number + " with disease: " + DiseaseName + " with symptom: " + Symptom + " with Estimated Goal Cost(f(n)): " + estimatedGoalCost +  " and unsatisfied Symptoms: " + unsatStr;		
+		return "Node: " + number + " with disease: " + DiseaseName + " with symptom: " + Symptom + " with Estimated Goal Cost(f(n)): " + (estimatedGoalCost - totalCost) +  " and unsatisfied Symptoms: " + unsatStr;		
 	}
 		
 }
